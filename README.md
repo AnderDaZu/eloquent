@@ -11,3 +11,27 @@ protected $table = 'nombre_tabla';
 
 > Es importante resaltar que todos los métodos que se usaron en query builder, son aplicables támbien en eloquent
 
+## Creando registros a partir de módelos
+Para crear registros a partir de módelos se debe instanciar el módelo
+```php
+$user = new User();
+```
+posteriormente se asignan los valores a los diferentes campos o atributos con los cuales cuenta dicho objeto
+```php
+$user->name = 'Juan';
+$user->email = 'juan@gmail.com';
+$user->password = bcrypt('123456');
+```
+posteriormente se guarda el registro
+> Es importante resaltar que si se pide que se retorne la información del registro que se acaba de crear a partir del módelo, en este caso el sistema no retornará ni password ni remember_token ya que por cuestiones de seguridad, se especifico en el módelo que los valores para dichos campos se deben de ocultar o de omitir al momento de que se requiera acceder a la información del usuario, esto esta definido como:
+```php
+/**
+ * The attributes that should be hidden for serialization.
+ *
+ * @var array<int, string>
+ */
+protected $hidden = [
+    'password',
+    'remember_token',
+];
+```

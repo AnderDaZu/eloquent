@@ -23,3 +23,13 @@ Route::get('/test1', function () {
         ->get();
     return $users;
 });
+
+Route::get('/test2', function () {
+    $user = new User();
+    $user->name = 'Anderson';
+    $user->email = 'WkTqM@example.com';
+    $user->password = bcrypt('12345678');
+    $user->save();
+
+    return $user;
+});

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,13 @@ Route::get('/test2', function () {
     $user->save();
 
     return $user;
+});
+
+Route::get('/test3', function () {
+    $data = [
+        'name' => 'Programación',
+    ];
+    $category = Category::create($data);
+
+    return $category;
 });

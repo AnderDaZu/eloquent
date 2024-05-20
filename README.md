@@ -35,3 +35,58 @@ protected $hidden = [
     'remember_token',
 ];
 ```
+
+## Asignación Masiva
+La asignación masiva en Laravel es una técnica que permite asignar valores a múltiples atributos de un modelo de forma simultánea 
+utilizando un solo arreglo de datos. Esto simplifica la creación y actualización de registros en la base de datos, especialmente 
+cuando se trabaja con grandes cantidades de datos.
+
+### Protección contra la asignación masiva
+Para protegerse contra la asignación masiva inadvertida o malintencionada, Laravel utiliza dos propiedades en los modelos 
+Eloquent: fillable y guarded.
+
+#### Propiedad fillable
+La propiedad fillable define una lista blanca de atributos que pueden ser asignados masivamente. Por ejemplo:
+```php
+class User extends Model
+{
+    protected $fillable = ['name', 'email', 'password'];
+}
+```
+Con esta configuración, solo los atributos name, email y password podrán ser asignados masivamente. Cualquier intento 
+de asignar otros atributos será ignorado.
+
+#### La propiedad guarded 
+Define una lista negra de atributos que no pueden ser asignados masivamente. Es el enfoque inverso a fillable. Por ejemplo:
+```php
+class User extends Model
+{
+    protected $guarded = ['is_admin'];
+}
+```
+Con esta configuración, cualquier atributo excepto is_admin podrá ser asignado masivamente.
+
+### Ejemplo
+- Creación de registro sin emplear asignación masiva
+```php
+$user = new User();
+$user->name = 'John Doe';
+$user->email = 'john@example.com';
+$user->password = bcrypt('password');
+$user->save();
+```
+- Usando asignación masiva, el mismo código puede reducirse a:
+```php
+$user = User::create([
+    'name' => 'John Doe',
+    'email' => 'john@example.com',
+    'password' => bcrypt('password')
+]);
+
+```
+
+## Conclusión
+La asignación masiva en Laravel es una herramienta poderosa para simplificar la creación y actualización de modelos 
+con múltiples atributos. Sin embargo, es crucial usar fillable o guarded para proteger la aplicación contra 
+vulnerabilidades de seguridad. Al definir explícitamente qué atributos pueden ser asignados masivamente, aseguras 
+que tu aplicación maneje los datos de manera segura y eficiente.

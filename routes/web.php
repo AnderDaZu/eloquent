@@ -43,3 +43,21 @@ Route::get('/test3', function () {
 
     return $category;
 });
+
+Route::get('/test4', function () {
+    $user = User::find(1);
+
+    // Opción 1 para actualizar
+    // $user->name = 'Anderson';
+    // $user->email = 'anderson@coders.com';
+    // $user->save();
+
+    $data = [
+        'name' => 'Anderson Daz',
+        'email' => 'andersondaz@coders.com',
+    ];
+    // Opción 2 para actualizar (recomendada)
+    $user->update($data);
+
+    return $user;
+});

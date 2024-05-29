@@ -6,8 +6,11 @@ namespace Database\Seeders;
 
 use App\Models\Address;
 use App\Models\Category;
+use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Post;
 use App\Models\Profile;
+use App\Models\Section;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,6 +33,16 @@ class DatabaseSeeder extends Seeder
         Category::factory(10)->create();
 
         Post::factory(100)->create();
+
+        Course::factory(20)->create()->each(function ($course) {
+            Section::factory(3)->create([
+                'course_id' => $course->id
+            ])->each(function ($section) {
+                Lesson::factory(2)->create([
+                    'section_id' => $section->id
+                ]);
+            });
+        });
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

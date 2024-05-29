@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Course;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -91,4 +92,14 @@ Route::get('/test7', function () {
     // return $user->profile->address;
     // usando la ralación uno a uno atravez de, se puede simplificar lo de arriba ☝️ con lo de abajo 👇
     return $user->address;
+});
+
+Route::get('/test8', function(){
+    $course = Course::find(4);
+
+    // cuando se usa la relación uno a muchos, no se puede realizar lo siguiente:
+    // return $course->sections->lesson; // esto se soluciona usando la relación uno a muchos a través de
+
+    // return $course->sections;
+    return $course->lessons;
 });

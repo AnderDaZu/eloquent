@@ -84,3 +84,11 @@ Route::get('/test6', function () {
     $category = Category::find(1);
     return $category->posts;
 });
+
+Route::get('/test7', function () {
+    $user = User::find(1);
+    
+    // return $user->profile->address;
+    // usando la ralación uno a uno atravez de, se puede simplificar lo de arriba ☝️ con lo de abajo 👇
+    return $user->address;
+});

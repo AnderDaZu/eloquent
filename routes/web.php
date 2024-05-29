@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,4 +61,19 @@ Route::get('/test4', function () {
     $user->update($data);
 
     return $user;
+});
+
+Route::get('/test5', function () {
+    /*
+        // forma para consultar la relación entre dos tablas usando query builder
+        $user2 = DB::table('users')
+            ->join('profiles', 'profiles.user_id', 'users.id')
+            ->where('users.id', 1)
+            ->first();
+    */
+
+    // forma para consultar la relacion entre dos tablas usando el modelo
+    $user = User::find(1);
+
+    return $user->profile;
 });

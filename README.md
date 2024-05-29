@@ -93,3 +93,23 @@ que tu aplicación maneje los datos de manera segura y eficiente.
 
 # Generar datos falsos
 [faker](https://fakerphp.org/)
+
+# Relaciones
+
+## Relación Uno a Uno
+Si se tiene una relación de usuarios con perfiles, se establece que un usuario puede tener solo un perfil y
+dicho perfil solo puede estar asignado a un usuario, con esto definimos lo siguiente para la creación de las
+relaciones en los módelos correspondientes:
+- Módelo users
+```php
+public function profile() {
+    return $this->hasOne(Profile::class);
+}
+```
+- Módelo profiles
+```php
+public function user() {
+    return $this->belongsTo(User::class);
+}
+```
+> Nota: es de resaltar que la llave foranea se establecio en la tabla profiles como user_id

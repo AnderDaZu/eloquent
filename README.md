@@ -90,3 +90,6 @@ La asignación masiva en Laravel es una herramienta poderosa para simplificar la
 con múltiples atributos. Sin embargo, es crucial usar fillable o guarded para proteger la aplicación contra 
 vulnerabilidades de seguridad. Al definir explícitamente qué atributos pueden ser asignados masivamente, aseguras 
 que tu aplicación maneje los datos de manera segura y eficiente.
+
+# Generar datos falsos
+[faker](https://fakerphp.org/)

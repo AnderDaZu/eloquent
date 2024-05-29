@@ -14,4 +14,8 @@ class Category extends Model
 
     // campos que no se van a usar para asignación masiva
     protected $guarded = [];
+
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
 }

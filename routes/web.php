@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -76,4 +77,10 @@ Route::get('/test5', function () {
     $user = User::find(1);
 
     return $user->profile;
+});
+
+Route::get('/test6', function () {
+    $post = Post::find(1);
+    $category = Category::find(1);
+    return $category->posts;
 });

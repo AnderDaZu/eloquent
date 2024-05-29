@@ -96,6 +96,8 @@ que tu aplicación maneje los datos de manera segura y eficiente.
 
 # Relaciones
 
+> Nota: en las relaciones de uno a uno y uno a muchos, el belongsto se coloca en el módelo donde va la llave foranea
+
 ## Relación Uno a Uno
 Si se tiene una relación de usuarios con perfiles, se establece que un usuario puede tener solo un perfil y
 dicho perfil solo puede estar asignado a un usuario, con esto definimos lo siguiente para la creación de las
@@ -113,3 +115,20 @@ public function user() {
 }
 ```
 > Nota: es de resaltar que la llave foranea se establecio en la tabla profiles como user_id
+
+## Relación Uno a Muchos
+Se tiene una relación de categorías con posts, donde una categoría puede estar en muchos posts, y un post
+solo puede tener una categoría, por ello se establece una relación uno a muchos
+- Módelo Category
+```php
+public function posts(){
+    return $this->hasMany(Post::class);
+}
+```
+- Módelo Post
+```php
+public function category(){
+    return $this->belongsTo(Category::class);
+}
+```
+> Nota: es de resaltar que la llave foranea se establecio en la tabla posts como category_id

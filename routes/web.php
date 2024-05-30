@@ -103,3 +103,26 @@ Route::get('/test8', function(){
     // return $course->sections;
     return $course->lessons;
 });
+
+Route::get('/test9', function () {
+    // insertar uno o más en tablas que estan muchos a muchos
+    $post = Post::find(1);
+    // $post->tags()->attach([1, 2, 3]); // attach permite crear registros en tabla pivote con los ids que van en el array
+    // $post->tags()->detach([1, 2, 3, 4]); // detach permite eliminar registros de la tabla pivote con los ids que se indiquen
+
+    $tags = [1, 3, 4];
+    // sync elimina los registros que esten en la tabla pivote y crea nuevos con los ids que se establescan
+    // valores antes [1, 2, 3]
+    // $post->tags()->sync($tags);
+    // valores despues [1, 3, 4]
+    // $post->tags()->sync($tags);
+
+    $post->tags()->attach([
+        1 => [
+            'data' => 'Hi there...'
+        ]
+    ]);
+    // $post->tags()->detach(1);
+
+    return $post->tags;
+});

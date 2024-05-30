@@ -11,6 +11,7 @@ use App\Models\Lesson;
 use App\Models\Post;
 use App\Models\Profile;
 use App\Models\Section;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -43,6 +44,8 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
         });
+
+        Tag::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

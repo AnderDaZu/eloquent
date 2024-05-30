@@ -18,4 +18,10 @@ class Post extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class)
+            ->withTimestamps() // para que se agreguen valores en los campos created_at & updated_at de la tabla pivote
+            ->withPivot('data'); // habilitar para que se puedan mostrar los valores de columnas secundarias de la tabla pivote
+    }
 }

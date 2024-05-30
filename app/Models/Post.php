@@ -24,4 +24,9 @@ class Post extends Model
             ->withTimestamps() // para que se agreguen valores en los campos created_at & updated_at de la tabla pivote
             ->withPivot('data'); // habilitar para que se puedan mostrar los valores de columnas secundarias de la tabla pivote
     }
+
+    // Relación uno a uno polimorfica
+    public function image(){
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

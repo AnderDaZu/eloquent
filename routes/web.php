@@ -126,3 +126,8 @@ Route::get('/test9', function () {
 
     return $post->tags;
 });
+
+Route::get('/test10', function () {
+    $post = Post::find(1);
+    return $post->image;
+});

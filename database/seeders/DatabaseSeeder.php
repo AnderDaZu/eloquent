@@ -33,7 +33,11 @@ class DatabaseSeeder extends Seeder
 
         Category::factory(10)->create();
 
-        Post::factory(100)->create();
+        Post::factory(100)->create()->each(function ($post) {
+            $post->image()->create([
+                'url' => 'path/to/image.jpg'
+            ]);
+        });
 
         Course::factory(20)->create()->each(function ($course) {
             Section::factory(3)->create([

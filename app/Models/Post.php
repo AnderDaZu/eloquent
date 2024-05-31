@@ -40,4 +40,9 @@ class Post extends Model
         return $this->morphToMany(Tag::class, 'taggable')
             ->withTimestamps();
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

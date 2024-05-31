@@ -25,6 +25,14 @@
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
         </div>
+        
+        <div class="mb-5">
+            <label for="slug" class="block mb-2 text-sm font-medium text-gray-900">Slug</label>
+            <input type="text" id="slug" name="slug" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ old('slug') }}">
+            @error('slug')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
         <div class="mb-5">
             <label for="body" class="block mb-2 text-sm font-medium text-gray-900">Contenido</label>

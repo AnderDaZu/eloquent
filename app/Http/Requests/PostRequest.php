@@ -23,6 +23,7 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'slug' => 'required|unique:posts,slug,except,id',
             'body' => 'required',
             'category_id' => 'required',  
         ];

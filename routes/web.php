@@ -131,3 +131,18 @@ Route::get('/test10', function () {
     $post = Post::find(1);
     return $post->image;
 });
+
+Route::get('/test11', function () {
+    $post = Post::find(1);
+    
+    $comment1 = $post->comments()->create([
+        'body' => 'This is my first comment',
+    ]);
+    $comment2 = $post->comments()->create([
+        'body' => 'This is my second comment',
+    ]);
+
+    return [$comment1, $comment2];
+
+    // return $post->comments;
+});

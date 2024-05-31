@@ -13,8 +13,14 @@ class Tag extends Model
         'name',
     ];
 
+    // public function posts(){
+    //     return $this->belongsToMany(Post::class)
+    //         ->withTimestamps(); // para que se agreguen valores en los campos created_at & updated_at de la tabla pivote
+    // }
+
+    // Relación muchos a muchos polimorfica inversa
     public function posts(){
-        return $this->belongsToMany(Post::class)
-            ->withTimestamps(); // para que se agreguen valores en los campos created_at & updated_at de la tabla pivote
+        return $this->morphedByMany(Post::class, 'taggable')
+            ->withTimestamps();
     }
 }

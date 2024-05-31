@@ -146,3 +146,11 @@ Route::get('/test11', function () {
 
     // return $post->comments;
 });
+
+Route::get('/test12', function () {
+    $post = Post::find(1);
+    // $tags = $post->tags()->attach([1, 2, 3]);
+    $tags = $post->tags()->sync([1, 6, 7]);
+
+    return $post->tags;
+});

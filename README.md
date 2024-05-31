@@ -93,3 +93,136 @@ que tu aplicación maneje los datos de manera segura y eficiente.
 
 # Generar datos falsos
 [faker](https://fakerphp.org/)
+
+# Relaciones
+
+> Nota: en las relaciones de uno a uno y uno a muchos, el belongsto se coloca en el módelo donde va la llave foranea
+
+## Relación Uno a Uno
+Si se tiene una relación de usuarios con perfiles, se establece que un usuario puede tener solo un perfil y
+dicho perfil solo puede estar asignado a un usuario, con esto definimos lo siguiente para la creación de las
+relaciones en los módelos correspondientes:
+- Módelo users
+```php
+public function profile() {
+    return $this->hasOne(Profile::class);
+}
+```
+- Módelo profiles
+```php
+public function user() {
+    return $this->belongsTo(User::class);
+}
+```
+> Nota: es de resaltar que la llave foranea se establecio en la tabla profiles como user_id
+
+## Relación Uno a Muchos
+Se tiene una relación de categorías con posts, donde una categoría puede estar en muchos posts, y un post
+solo puede tener una categoría, por ello se establece una relación uno a muchos
+- Módelo Category
+```php
+public function posts(){
+    return $this->hasMany(Post::class);
+}
+```
+- Módelo Post
+```php
+public function category(){
+    return $this->belongsTo(Category::class);
+}
+```
+> Nota: es de resaltar que la llave foranea se establecio en la tabla posts como category_id
+
+## Relación uno a uno polimorfica
+Una relación uno a uno polimórfica es una relación especial que permite que un modelo pertenezca a más de un tipo de modelo en una 
+única asociación. Este tipo de relación es útil cuando tienes un modelo que puede estar asociado a varios otros modelos de diferentes 
+tipos con una relación uno a uno.
+#### Ejemplo Práctico
+Supongamos que tienes dos tipos de modelos diferentes: User y Post, y ambos pueden tener una imagen asociada. La imagen podría estar 
+almacenada en un modelo Image.
+1. Paso 1: Definir las Migraciones
+Primero, definimos las migraciones para los modelos users, posts, y images.
+- Users Table
+```php
+Schema::create('users', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->timestamps();
+});
+```
+- Posts Table
+```php
+Schema::create('posts', function (Blueprint $table) {
+    $table->id();
+    $table->string('title');
+    $table->text('content');
+    $table->timestamps();
+});
+```
+- Images Table
+```php
+Schema::create('images', function (Blueprint $table) {
+    $table->id();
+    $table->string('url');
+    $table->morphs('imageable');  // This creates 'imageable_id' and 'imageable_type'
+    $table->timestamps();
+});
+```
+2. Paso 2: Definir los Modelos
+Definimos los modelos User, Post, y Image con las relaciones correspondientes.
+- User Model
+```php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class User extends Model
+{
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+}
+```
+- Post Model
+```php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Post extends Model
+{
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+}
+```
+- Image Model
+```php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+class Image extends Model
+{
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
+}
+```
+3. Paso 3: Uso de la Relación
+Ahora que hemos definido la relación uno a uno polimórfica, podemos usarla en nuestro código para asociar imágenes a usuarios y posts.
+- Asociar una imagen a un usuario
+```php
+$user = User::find(1);
+$image = new Image(['url' => 'path/to/image.jpg']);
+$user->image()->save($image);
+```
+- Asociar una imagen a un post
+```php
+$post = Post::find(1);
+$image = new Image(['url' => 'path/to/image.jpg']);
+$post->image()->save($image);
+```
+- Obtener la imagen asociada a un usuario o post
+```php
+$user = User::find(1);
+$image = $user->image;
+echo $image->url;
+```

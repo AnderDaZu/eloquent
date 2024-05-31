@@ -47,6 +47,13 @@
             @enderror
         </div>
 
+        {{-- forma para recuperar valor de entrada de un input tipo checkbox --}}
+        <div class="mb-5">
+            <label class="block mb-2 text-sm font-medium text-gray-900">
+                <input type="checkbox" name="status" value="1" @checked( old('status') == 1 )> Estado
+            </label>
+        </div>
+
         <button type="submit" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Crear post</button>
     </form>
 </x-layout>

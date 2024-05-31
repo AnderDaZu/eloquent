@@ -8,5 +8,11 @@
 
     <span class="bg-blue-300 px-2 py-1 rounded rounded-xl font-bold text-sm">{{ $post->category->name }}</span>
 
-    <p class="text-xl mt-4">{{ $post->body }}</p>
+    <p class="text-xl mt-4 mb-6">{{ $post->body }}</p>
+
+    <form action="{{ route('posts.destroy', $post) }}" method="post">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-md text-md px-2 py-1 text-center">Eliminar Post</button>
+    </form>
 </x-layout>

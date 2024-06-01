@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Post;
@@ -154,3 +155,5 @@ Route::get('/test12', function () {
 
     return $post->tags;
 });
+
+Route::resource('posts', PostController::class);

@@ -21,33 +21,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(100)->create()->each(function ($user) {
-            Profile::factory(1)->create([
-                'user_id' => $user->id
-            ])->each(function ($profile) {
-                Address::factory(1)->create([
-                    'profile_id' => $profile->id
-                ]);
-            });
-        });
+        $this->call(UserSeeder::class);
 
         Category::factory(10)->create();
 
-        Post::factory(100)->create()->each(function ($post) {
-            $post->image()->create([
-                'url' => 'path/to/image.jpg'
-            ]);
-        });
-
-        Course::factory(20)->create()->each(function ($course) {
-            Section::factory(3)->create([
-                'course_id' => $course->id
-            ])->each(function ($section) {
-                Lesson::factory(2)->create([
-                    'section_id' => $section->id
-                ]);
-            });
-        });
+        $this->call([
+            PostSeeder::class,
+            CourseSeeder::class,
+        ]);
+        // lo de ☝️ es igual a 👇
+        // $this->call(PostSeeder::class);
+        // $this->call(CourseSeeder::class);
 
         Tag::factory(10)->create();
 

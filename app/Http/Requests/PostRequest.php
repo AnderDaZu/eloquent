@@ -32,7 +32,7 @@ class PostRequest extends FormRequest
             'title' => 'required',
             'slug' => 'required|unique:posts,slug' . $post_id,
             'body' => 'required',
-            'category_id' => 'required',  
+            'category_id' => 'required|exists:categories,id',  
         ];
     }
 }

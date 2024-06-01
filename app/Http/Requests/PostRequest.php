@@ -21,9 +21,16 @@ class PostRequest extends FormRequest
      */
     public function rules(): array
     {
+        if( $this->post )
+        {
+            $post_id = ',' . $this->post->id;
+        } else {
+            $post_id = '';
+        }
+
         return [
             'title' => 'required',
-            'slug' => 'required|unique:posts,slug,except,id',
+            'slug' => 'required|unique:posts,slug' . $post_id,
             'body' => 'required',
             'category_id' => 'required',  
         ];
